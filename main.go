@@ -7,6 +7,16 @@ import (
 )
 
 func main() {
+	type Hashtag struct {
+		StreamTag string `json:"streamTag"`
+		FanArt    string `json:"fanArt"`
+	}
+
+	type Info struct {
+		FanName string  `json:"fanName"`
+		Hashtag Hashtag `json:"hashtags"`
+	}
+
 	type Channel struct {
 		TwitterAccount string `json:"twitterAccount"`
 		Name           string `json:"name"`
@@ -17,7 +27,7 @@ func main() {
 		Birthday       string `json:"birthday"`
 		Height         string `json:"height"`
 		DebutDate      string `json:"debutDate"`
-		Info           string `json:"info"`
+		Info           Info   `json:"info"`
 	}
 
 	router := gin.Default()
@@ -42,7 +52,13 @@ func main() {
 					Height:         "157",
 					Birthday:       "05/20",
 					DebutDate:      "2020/09/13",
-					Info:           "{}",
+					Info: Info{
+						FanName: "takodachi tentacult",
+						Hashtag: Hashtag{
+							StreamTag: "#TAKOTIME #タコタイム",
+							FanArt:    "#inART #いなート",
+						},
+					},
 				}
 
 				ame := Channel{
@@ -55,7 +71,13 @@ func main() {
 					Height:         "150",
 					Birthday:       "01/06",
 					DebutDate:      "2020/09/13",
-					Info:           "{}",
+					Info: Info{
+						FanName: "teamates",
+						Hashtag: Hashtag{
+							StreamTag: "#amelive",
+							FanArt:    "#ameliaRT",
+						},
+					},
 				}
 
 				var channels []Channel
@@ -77,7 +99,13 @@ func main() {
 					Height:         "141",
 					Birthday:       "06/20",
 					DebutDate:      "2020/09/13",
-					Info:           "{}",
+					Info: Info{
+						FanName: "chumbuds",
+						Hashtag: Hashtag{
+							StreamTag: "#gawrgura",
+							FanArt:    "#gawrt",
+						},
+					},
 				}
 
 				c.JSON(http.StatusOK, channel)
