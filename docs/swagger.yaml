@@ -1,0 +1,50 @@
+info:
+  contact: {}
+  description: Oshi-api swagger
+  license:
+    name: MIT
+    url: https://www.mit.edu/~amini/LICENSE.md
+  title: Oshi-api
+  version: "1.0"
+paths:
+  /api/v1/channels:
+    get:
+      consumes:
+      - application/json
+      description: Get channels by filters
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get Channels
+      tags:
+      - Channels
+  /api/v1/channels/{twitterAccount}:
+    get:
+      consumes:
+      - application/json
+      description: Show channel info
+      parameters:
+      - description: Twitter Account
+        in: path
+        name: twitterAccount
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Get Channel By Twitter Account
+      tags:
+      - Channels
+swagger: "2.0"

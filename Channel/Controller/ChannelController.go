@@ -8,6 +8,13 @@ import (
 	ChannelEntity "Osheet-api/Channel/Entity"
 )
 
+// @Summary     Get Channels
+// @Description Get channels by filters
+// @Tags        Channels
+// @Accept 		json
+// @Produce 	json
+// @Success 	200 {string} Helloworld
+// @Router 		/api/v1/channels [get]
 func Index(context *gin.Context) {
 	// company := context.Query("company")  // get query string: company
 
@@ -55,6 +62,15 @@ func Index(context *gin.Context) {
 	context.JSON(http.StatusOK, channels)
 }
 
+// @Summary Get Channel By Twitter Account
+// @Description Show channel info
+// @Tags        Channels
+// @Accept      json
+// @Produce     json
+// @param       twitterAccount path string true "Twitter Account"
+// @Success 	200 {string} Helloworld
+// @Failure		404 {string} Channel not found
+// @Router 		/api/v1/channels/{twitterAccount} [get]
 func Show(context *gin.Context) {
 	twitterAccount := context.Param("twitterAccount") // get URL path parameter: twitterAccount
 
