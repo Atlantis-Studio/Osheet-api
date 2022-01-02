@@ -56,7 +56,9 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            items:
+              $ref: '#/definitions/ChannelEntity.Channel'
+            type: array
       summary: Get Channels
       tags:
       - Channels

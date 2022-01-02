@@ -44,7 +44,10 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ChannelEntity.Channel"
+                            }
                         }
                     }
                 }

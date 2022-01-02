@@ -13,7 +13,7 @@ import (
 // @Tags        Channels
 // @Accept 		json
 // @Produce 	json
-// @Success 	200 {string} Helloworld
+// @Success 	200 {object} []ChannelEntity.Channel
 // @Router 		/api/v1/channels [get]
 func Index(context *gin.Context) {
 	// company := context.Query("company")  // get query string: company
