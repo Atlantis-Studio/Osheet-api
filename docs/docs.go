@@ -76,7 +76,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/ChannelEntity.Channel"
                         }
                     },
                     "404": {
@@ -85,6 +85,65 @@ var doc = `{
                             "type": "string"
                         }
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ChannelEntity.Channel": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "birthday": {
+                    "type": "string"
+                },
+                "channelUrl": {
+                    "type": "string"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "debutDate": {
+                    "type": "string"
+                },
+                "height": {
+                    "type": "number"
+                },
+                "info": {
+                    "$ref": "#/definitions/ChannelEntity.Info"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "twitterAccount": {
+                    "type": "string"
+                },
+                "unit": {
+                    "type": "string"
+                }
+            }
+        },
+        "ChannelEntity.Hashtag": {
+            "type": "object",
+            "properties": {
+                "fanArt": {
+                    "type": "string"
+                },
+                "streamTag": {
+                    "type": "string"
+                }
+            }
+        },
+        "ChannelEntity.Info": {
+            "type": "object",
+            "properties": {
+                "fanName": {
+                    "type": "string"
+                },
+                "hashtags": {
+                    "$ref": "#/definitions/ChannelEntity.Hashtag"
                 }
             }
         }

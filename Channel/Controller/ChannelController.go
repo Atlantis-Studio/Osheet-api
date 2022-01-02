@@ -25,7 +25,7 @@ func Index(context *gin.Context) {
 		Company:        "Hololive",
 		Unit:           "hololive English - Myth",
 		ChannelUrl:     "https://www.youtube.com/channel/UCMwGHR0BTZuLsmjY_NT5Pwg",
-		Height:         "157",
+		Height:         157,
 		Birthday:       "05/20",
 		DebutDate:      "2020/09/13",
 		Info: ChannelEntity.Info{
@@ -44,7 +44,7 @@ func Index(context *gin.Context) {
 		Company:        "Hololive",
 		Unit:           "hololive English - Myth",
 		ChannelUrl:     "https://www.youtube.com/channel/UCyl1z3jo3XHR1riLFKG5UAg",
-		Height:         "150",
+		Height:         150,
 		Birthday:       "01/06",
 		DebutDate:      "2020/09/13",
 		Info: ChannelEntity.Info{
@@ -68,7 +68,7 @@ func Index(context *gin.Context) {
 // @Accept      json
 // @Produce     json
 // @param       twitterAccount path string true "Twitter Account"
-// @Success 	200 {string} Helloworld
+// @Success 	200 {object} ChannelEntity.Channel
 // @Failure		404 {string} Channel not found
 // @Router 		/api/v1/channels/{twitterAccount} [get]
 func Show(context *gin.Context) {
@@ -81,7 +81,7 @@ func Show(context *gin.Context) {
 		Company:        "Hololive",
 		Unit:           "hololive English - Myth",
 		ChannelUrl:     "https://www.youtube.com/channel/UCoSrY_IQQVpmIRZ9Xf-y93g",
-		Height:         "141",
+		Height:         141,
 		Birthday:       "06/20",
 		DebutDate:      "2020/09/13",
 		Info: ChannelEntity.Info{
