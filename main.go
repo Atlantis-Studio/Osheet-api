@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 
-	ChannelController "Osheet-api/Channel/Controller"
+	ChannelController "Osheet-api/V1/Channel/Controller"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -33,7 +33,7 @@ func main() {
 		}
 	}
 
-	url := ginSwagger.URL("http://localhost:8080/swagger/doc.json") // The url pointing to API definition
+	url := ginSwagger.URL("http://0.0.0.0:8080/swagger/doc.json") // The url pointing to API definition
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
 	router.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")

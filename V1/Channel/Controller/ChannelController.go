@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	ChannelEntity "Osheet-api/Channel/Entity"
+	ChannelEntity "Osheet-api/V1/Channel/Entity"
 )
 
 // @Summary     Get Channels
