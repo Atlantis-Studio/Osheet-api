@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 
-	ChannelController "Osheet-api/V1/Channel/Controller"
+	controllers "Osheet-api/V1/controllers"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -22,12 +22,14 @@ import (
 func main() {
 	router := gin.Default()
 
+	channelController := new(controllers.ChannelController)
+
 	apiGroup := router.Group("/api")
 	{
 		v1Group := apiGroup.Group("/v1")
 		{
-			v1Group.GET("/channels", ChannelController.Index)
-			v1Group.GET("/channels/:twitterAccount", ChannelController.Show)
+			v1Group.GET("/channels", channelController.Index)
+			v1Group.GET("/channels/:twitterAccount", channelController.Show)
 
 			// TODO POST /channels
 		}

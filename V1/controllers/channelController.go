@@ -1,12 +1,14 @@
-package ChannelController
+package controllers
 
 import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 
-	ChannelEntity "Osheet-api/V1/Channel/Entity"
+	ChannelEntity "Osheet-api/V1/models/channel"
 )
+
+type ChannelController struct{}
 
 // @Summary     Get Channels
 // @Description Get channels by filters
@@ -15,7 +17,7 @@ import (
 // @Produce 	json
 // @Success 	200 {object} []ChannelEntity.Channel
 // @Router 		/api/v1/channels [get]
-func Index(context *gin.Context) {
+func (c ChannelController) Index(context *gin.Context) {
 	// company := context.Query("company")  // get query string: company
 
 	ina := ChannelEntity.Channel{
@@ -71,7 +73,7 @@ func Index(context *gin.Context) {
 // @Success 	200 {object} ChannelEntity.Channel
 // @Failure		404 {string} Channel not found
 // @Router 		/api/v1/channels/{twitterAccount} [get]
-func Show(context *gin.Context) {
+func (c ChannelController) Show(context *gin.Context) {
 	twitterAccount := context.Param("twitterAccount") // get URL path parameter: twitterAccount
 
 	channel := ChannelEntity.Channel{
