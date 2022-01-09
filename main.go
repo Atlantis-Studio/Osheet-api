@@ -3,7 +3,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 
-	controllers "Osheet-api/V1/controllers"
+	"Osheet-api/database"
+	controllers "Osheet-api/v1/controllers"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -20,6 +21,8 @@ import (
 
 // schemes http
 func main() {
+	defer database.Close()
+
 	router := gin.Default()
 
 	channelController := new(controllers.ChannelController)

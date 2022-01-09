@@ -1,18 +1,15 @@
-package ChannelEntity
+package models
 
-type Hashtag struct {
-	StreamTag string `json:"streamTag"`
-	FanArt    string `json:"fanArt"`
-}
+import (
+	"gorm.io/gorm"
+)
 
-type Info struct {
-	FanName string  `json:"fanName"`
-	Hashtag Hashtag `json:"hashtags"`
-}
+// TODO: FanName, Hashtag(StreamTag, FanArt)
 
 type Channel struct {
-	TwitterAccount string  `json:"twitterAccount"`
+	gorm.Model
 	Name           string  `json:"name"`
+	TwitterAccount string  `json:"twitterAccount"`
 	Avatar         string  `json:"avatar"`
 	Company        string  `json:"company"`
 	Unit           string  `json:"unit"`
@@ -20,5 +17,4 @@ type Channel struct {
 	Birthday       string  `json:"birthday"`
 	Height         float64 `json:"height"`
 	DebutDate      string  `json:"debutDate"`
-	Info           Info    `json:"info"`
 }
