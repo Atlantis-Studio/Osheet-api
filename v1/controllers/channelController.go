@@ -100,7 +100,10 @@ func (c ChannelController) Show(context *gin.Context) {
 		fmt.Println("Get /api/v1/channels/{twitterAccount} Failed:", err)
 	}
 
-	// TODO: 404
+	if channel == nil {
+		context.JSON(http.StatusNotFound, fmt.Sprintf("Channel %s Not Found", twitterAccount))
+		return
+	}
 
 	context.JSON(http.StatusOK, channel)
 }
