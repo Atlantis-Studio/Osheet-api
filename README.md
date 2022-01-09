@@ -27,3 +27,8 @@ Combined 'Oshi' and 'Sheet' into Osheet. In Japenese 'Oshi'(推し) means a pers
     |-- .env.example
     |-- main.go
 ```
+
+## Generate swagger document
+```
+swag init --parseDependency --parseInternal
+```

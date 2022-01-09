@@ -1,9 +1,11 @@
 package controllers
 
 import (
+	models "Osheet-api/v1/models"
 	services "Osheet-api/v1/services"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,7 +17,9 @@ type ChannelController struct{}
 // @Tags        Channels
 // @Accept 		json
 // @Produce 	json
-// @Success 	200 {object} []ChannelEntity.Channel
+//
+// @Success 	200 {object} []models.Channel
+//
 // @Router 		/api/v1/channels [get]
 func (c ChannelController) Index(context *gin.Context) {
 	// company := context.Query("company")  // TODO get query string: company
@@ -29,14 +33,74 @@ func (c ChannelController) Index(context *gin.Context) {
 	context.JSON(http.StatusOK, channels)
 }
 
-// @Summary Get Channel By Twitter Account
+// @Summary     Create Channl
+// @Description Store new channel
+// @Tags        Channels
+// @Accept 		json
+// @Produce 	json
+//
+// @param       name formData string true "Display Name"
+// @param       twitterAccount formData string true "Twitter Account"
+// @param       avatar formData string false "Avatar Photo Url"
+// @param       company formData string false "Company"
+// @param       unit formData string false "Unit"
+// @param       channelUrl formData string true "Channel Url"
+// @param       birthday formData string false "Birthday"
+// @param       height formData float64 false "Height"
+// @param       debutDate formData string false "Debut Date"
+//
+// @Success 	200 {object} models.Channel
+// @Failure		409 {string} Channel Already Exist
+//
+// @Router 		/api/v1/channels [post]
+func (c ChannelController) Store(context *gin.Context) {
+	var channel models.Channel
+	channel.Name = context.PostForm("name")
+	channel.TwitterAccount = context.PostForm("twitterAccount")
+	channel.Avatar = context.PostForm("avatar")
+	channel.Company = context.PostForm("company")
+	channel.Unit = context.PostForm("unit")
+	channel.ChannelUrl = context.PostForm("channelUrl")
+	channel.Birthday = context.PostForm("birthday")
+
+	if height, err := strconv.ParseFloat(context.PostForm("height"), 64); err == nil {
+		channel.Height = float64(height)
+	}
+
+	channel.DebutDate = context.PostForm("debutDate")
+
+	channelService := new(services.ChannelService)
+
+	// check channel exist
+	checkChannel, err := channelService.GetChannelByTwitterAccount(context.PostForm("twitterAccount"))
+	if err != nil {
+		fmt.Println("Post /api/v1/channels Failed:", err)
+	}
+
+	if checkChannel != nil {
+		context.JSON(http.StatusConflict, fmt.Sprintf("Channel %s Already Exist", context.PostForm("twitterAccount")))
+		return
+	}
+
+	newChannel, err := channelService.StoreChannel(channel)
+	if err != nil {
+		fmt.Println("Post /api/v1/channels Failed:", err)
+	}
+
+	context.JSON(http.StatusCreated, newChannel)
+}
+
+// @Summary     Get Channel By Twitter Account
 // @Description Show channel info
 // @Tags        Channels
 // @Accept      json
 // @Produce     json
+//
 // @param       twitterAccount path string true "Twitter Account"
-// @Success 	200 {object} ChannelEntity.Channel
-// @Failure		404 {string} Channel not found
+//
+// @Success 	200 {object} models.Channel
+// @Failure		404 {string} Channel Not Found
+//
 // @Router 		/api/v1/channels/{twitterAccount} [get]
 func (c ChannelController) Show(context *gin.Context) {
 	twitterAccount := context.Param("twitterAccount") // get URL path parameter: twitterAccount
@@ -47,7 +111,10 @@ func (c ChannelController) Show(context *gin.Context) {
 		fmt.Println("Get /api/v1/channels/{twitterAccount} Failed:", err)
 	}
 
+	if channel == nil {
+		context.JSON(http.StatusNotFound, fmt.Sprintf("Channel %s Not Found", twitterAccount))
+		return
+	}
+
 	context.JSON(http.StatusOK, channel)
 }
-
-// TODO: Create channel

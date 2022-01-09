@@ -1,5 +1,13 @@
 definitions:
-  ChannelEntity.Channel:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  models.Channel:
     properties:
       avatar:
         type: string
@@ -9,32 +17,24 @@ definitions:
         type: string
       company:
         type: string
+      createdAt:
+        type: string
       debutDate:
         type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
       height:
         type: number
-      info:
-        $ref: '#/definitions/ChannelEntity.Info'
+      id:
+        type: integer
       name:
         type: string
       twitterAccount:
         type: string
       unit:
         type: string
-    type: object
-  ChannelEntity.Hashtag:
-    properties:
-      fanArt:
+      updatedAt:
         type: string
-      streamTag:
-        type: string
-    type: object
-  ChannelEntity.Info:
-    properties:
-      fanName:
-        type: string
-      hashtags:
-        $ref: '#/definitions/ChannelEntity.Hashtag'
     type: object
 info:
   contact: {}
@@ -57,9 +57,67 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/ChannelEntity.Channel'
+              $ref: '#/definitions/models.Channel'
             type: array
       summary: Get Channels
+      tags:
+      - Channels
+    post:
+      consumes:
+      - application/json
+      description: Store new channel
+      parameters:
+      - description: Display Name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: Twitter Account
+        in: formData
+        name: twitterAccount
+        required: true
+        type: string
+      - description: Avatar Photo Url
+        in: formData
+        name: avatar
+        type: string
+      - description: Company
+        in: formData
+        name: company
+        type: string
+      - description: Unit
+        in: formData
+        name: unit
+        type: string
+      - description: Channel Url
+        in: formData
+        name: channelUrl
+        required: true
+        type: string
+      - description: Birthday
+        in: formData
+        name: birthday
+        type: string
+      - description: Height
+        in: formData
+        name: height
+        type: number
+      - description: Debut Date
+        in: formData
+        name: debutDate
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Channel'
+        "409":
+          description: Conflict
+          schema:
+            type: string
+      summary: Create Channl
       tags:
       - Channels
   /api/v1/channels/{twitterAccount}:
@@ -79,7 +137,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ChannelEntity.Channel'
+            $ref: '#/definitions/models.Channel'
         "404":
           description: Not Found
           schema:

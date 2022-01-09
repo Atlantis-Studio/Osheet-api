@@ -18,6 +18,17 @@ func (s ChannelService) GetAllChannel() (channelList []*models.Channel, err erro
 	return channelList, nil
 }
 
+// Create channel
+func (s ChannelService) StoreChannel(newChannel models.Channel) (channel models.Channel, err error) {
+	result := database.GetDB().Create(&newChannel)
+
+	if result.Error != nil {
+		return channel, err
+	}
+
+	return newChannel, nil
+}
+
 // Get channel by twiiter account
 func (s ChannelService) GetChannelByTwitterAccount(twitterAccount string) (channel *models.Channel, err error) {
 	if err = database.GetDB().Where("twitter_account = ?", twitterAccount).First(&channel).Error; err != nil {
