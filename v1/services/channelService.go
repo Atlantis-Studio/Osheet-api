@@ -13,6 +13,8 @@ func (s ChannelService) GetAllChannel() (channelList []*models.Channel, err erro
 		return nil, err
 	}
 
+	// TODO: database.GetDB().Find(&channelList, "company = ?", "Hololive")
+
 	return channelList, nil
 }
 
