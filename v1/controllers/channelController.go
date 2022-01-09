@@ -1,9 +1,11 @@
 package controllers
 
 import (
+	models "Osheet-api/v1/models"
 	services "Osheet-api/v1/services"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -44,16 +46,40 @@ func (c ChannelController) Index(context *gin.Context) {
 // @param       unit formData string false "Unit"
 // @param       channelUrl formData string true "Channel Url"
 // @param       birthday formData string false "Birthday"
-// @param       height formData string false "Height"
+// @param       height formData float64 false "Height"
 // @param       debutDate formData string false "Debut Date"
 //
 // @Success 	200 {object} models.Channel
 //
 // @Router 		/api/v1/channels [post]
 func (c ChannelController) Store(context *gin.Context) {
+	var channel models.Channel
+	channel.Name = context.PostForm("name")
+	channel.TwitterAccount = context.PostForm("twitterAccount")
+	channel.Avatar = context.PostForm("avatar")
+	channel.Company = context.PostForm("company")
+	channel.Unit = context.PostForm("unit")
+	channel.ChannelUrl = context.PostForm("channelUrl")
+	channel.Birthday = context.PostForm("birthday")
+
+	if height, err := strconv.ParseFloat(context.PostForm("height"), 64); err == nil {
+		channel.Height = float64(height)
+	}
+
+	channel.DebutDate = context.PostForm("debutDate")
+
+	channelService := new(services.ChannelService)
+	// TODO: check channel exist
+
+	newChannel, err := channelService.StoreChannel(channel)
+	if err != nil {
+		fmt.Println("Post /api/v1/channels Failed:", err)
+	}
+
+	context.JSON(http.StatusOK, newChannel)
 }
 
-// @Summary     Get Channl By Twitter Account
+// @Summary     Get Channel By Twitter Account
 // @Description Show channel info
 // @Tags        Channels
 // @Accept      json
