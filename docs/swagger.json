@@ -48,6 +48,65 @@
                     "Channels"
                 ],
                 "summary": "Create Channl",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Display Name",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Twitter Account",
+                        "name": "twitterAccount",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Avatar Photo Url",
+                        "name": "avatar",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Company",
+                        "name": "company",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Unit",
+                        "name": "unit",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Channel Url",
+                        "name": "channelUrl",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Birthday",
+                        "name": "birthday",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Height",
+                        "name": "height",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Debut Date",
+                        "name": "debutDate",
+                        "in": "formData"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",

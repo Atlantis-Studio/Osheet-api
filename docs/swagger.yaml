@@ -66,6 +66,46 @@ paths:
       consumes:
       - application/json
       description: Store new channel
+      parameters:
+      - description: Display Name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: Twitter Account
+        in: formData
+        name: twitterAccount
+        required: true
+        type: string
+      - description: Avatar Photo Url
+        in: formData
+        name: avatar
+        type: string
+      - description: Company
+        in: formData
+        name: company
+        type: string
+      - description: Unit
+        in: formData
+        name: unit
+        type: string
+      - description: Channel Url
+        in: formData
+        name: channelUrl
+        required: true
+        type: string
+      - description: Birthday
+        in: formData
+        name: birthday
+        type: string
+      - description: Height
+        in: formData
+        name: height
+        type: string
+      - description: Debut Date
+        in: formData
+        name: debutDate
+        type: string
       produces:
       - application/json
       responses:

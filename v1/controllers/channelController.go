@@ -15,7 +15,9 @@ type ChannelController struct{}
 // @Tags        Channels
 // @Accept 		json
 // @Produce 	json
+//
 // @Success 	200 {object} []models.Channel
+//
 // @Router 		/api/v1/channels [get]
 func (c ChannelController) Index(context *gin.Context) {
 	// company := context.Query("company")  // TODO get query string: company
@@ -34,7 +36,19 @@ func (c ChannelController) Index(context *gin.Context) {
 // @Tags        Channels
 // @Accept 		json
 // @Produce 	json
+//
+// @param       name formData string true "Display Name"
+// @param       twitterAccount formData string true "Twitter Account"
+// @param       avatar formData string false "Avatar Photo Url"
+// @param       company formData string false "Company"
+// @param       unit formData string false "Unit"
+// @param       channelUrl formData string true "Channel Url"
+// @param       birthday formData string false "Birthday"
+// @param       height formData string false "Height"
+// @param       debutDate formData string false "Debut Date"
+//
 // @Success 	200 {object} models.Channel
+//
 // @Router 		/api/v1/channels [post]
 func (c ChannelController) Store(context *gin.Context) {
 }
@@ -44,9 +58,12 @@ func (c ChannelController) Store(context *gin.Context) {
 // @Tags        Channels
 // @Accept      json
 // @Produce     json
+//
 // @param       twitterAccount path string true "Twitter Account"
+//
 // @Success 	200 {object} models.Channel
 // @Failure		404 {string} Channel not found
+//
 // @Router 		/api/v1/channels/{twitterAccount} [get]
 func (c ChannelController) Show(context *gin.Context) {
 	twitterAccount := context.Param("twitterAccount") // get URL path parameter: twitterAccount
@@ -56,6 +73,8 @@ func (c ChannelController) Show(context *gin.Context) {
 	if err != nil {
 		fmt.Println("Get /api/v1/channels/{twitterAccount} Failed:", err)
 	}
+
+	// TODO: 404
 
 	context.JSON(http.StatusOK, channel)
 }
