@@ -86,6 +86,7 @@ var doc = `{
                 "tags": [
                     "Channels"
                 ],
+                "summary": "Get Channl By Twitter Account",
                 "parameters": [
                     {
                         "type": "string",

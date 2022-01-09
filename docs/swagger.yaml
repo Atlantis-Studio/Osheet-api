@@ -98,6 +98,7 @@ paths:
           description: Not Found
           schema:
             type: string
+      summary: Get Channl By Twitter Account
       tags:
       - Channels
 swagger: "2.0"

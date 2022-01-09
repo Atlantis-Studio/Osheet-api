@@ -39,6 +39,7 @@ func (c ChannelController) Index(context *gin.Context) {
 func (c ChannelController) Store(context *gin.Context) {
 }
 
+// @Summary     Get Channl By Twitter Account
 // @Description Show channel info
 // @Tags        Channels
 // @Accept      json
