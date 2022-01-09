@@ -101,7 +101,7 @@ paths:
       - description: Height
         in: formData
         name: height
-        type: string
+        type: number
       - description: Debut Date
         in: formData
         name: debutDate
@@ -113,6 +113,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Channel'
+        "409":
+          description: Conflict
+          schema:
+            type: string
       summary: Create Channl
       tags:
       - Channels
@@ -138,7 +142,7 @@ paths:
           description: Not Found
           schema:
             type: string
-      summary: Get Channl By Twitter Account
+      summary: Get Channel By Twitter Account
       tags:
       - Channels
 swagger: "2.0"

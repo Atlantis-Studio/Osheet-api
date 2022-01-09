@@ -111,7 +111,7 @@ var doc = `{
                         "in": "formData"
                     },
                     {
-                        "type": "string",
+                        "type": "number",
                         "description": "Height",
                         "name": "height",
                         "in": "formData"
@@ -129,6 +129,12 @@ var doc = `{
                         "schema": {
                             "$ref": "#/definitions/models.Channel"
                         }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 }
             }
@@ -145,7 +151,7 @@ var doc = `{
                 "tags": [
                     "Channels"
                 ],
-                "summary": "Get Channl By Twitter Account",
+                "summary": "Get Channel By Twitter Account",
                 "parameters": [
                     {
                         "type": "string",

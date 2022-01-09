@@ -50,6 +50,7 @@ func (c ChannelController) Index(context *gin.Context) {
 // @param       debutDate formData string false "Debut Date"
 //
 // @Success 	200 {object} models.Channel
+// @Failure		409 {string} Channel Already Exist
 //
 // @Router 		/api/v1/channels [post]
 func (c ChannelController) Store(context *gin.Context) {
@@ -69,14 +70,24 @@ func (c ChannelController) Store(context *gin.Context) {
 	channel.DebutDate = context.PostForm("debutDate")
 
 	channelService := new(services.ChannelService)
-	// TODO: check channel exist
+
+	// check channel exist
+	checkChannel, err := channelService.GetChannelByTwitterAccount(context.PostForm("twitterAccount"))
+	if err != nil {
+		fmt.Println("Post /api/v1/channels Failed:", err)
+	}
+
+	if checkChannel != nil {
+		context.JSON(http.StatusConflict, fmt.Sprintf("Channel %s Already Exist", context.PostForm("twitterAccount")))
+		return
+	}
 
 	newChannel, err := channelService.StoreChannel(channel)
 	if err != nil {
 		fmt.Println("Post /api/v1/channels Failed:", err)
 	}
 
-	context.JSON(http.StatusOK, newChannel)
+	context.JSON(http.StatusCreated, newChannel)
 }
 
 // @Summary     Get Channel By Twitter Account
@@ -88,7 +99,7 @@ func (c ChannelController) Store(context *gin.Context) {
 // @param       twitterAccount path string true "Twitter Account"
 //
 // @Success 	200 {object} models.Channel
-// @Failure		404 {string} Channel not found
+// @Failure		404 {string} Channel Not Found
 //
 // @Router 		/api/v1/channels/{twitterAccount} [get]
 func (c ChannelController) Show(context *gin.Context) {
