@@ -1,12 +1,11 @@
 package controllers
 
 import (
+	services "Osheet-api/v1/services"
 	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-
-	service "Osheet-api/v1/services"
 )
 
 type ChannelController struct{}
@@ -21,7 +20,8 @@ type ChannelController struct{}
 func (c ChannelController) Index(context *gin.Context) {
 	// company := context.Query("company")  // TODO get query string: company
 
-	channels, err := service.GetAllChannel()
+	channelService := new(services.ChannelService)
+	channels, err := channelService.GetAllChannel()
 	if err != nil {
 		fmt.Println("Get /api/v1/channels Failed:", err)
 	}
@@ -41,7 +41,8 @@ func (c ChannelController) Index(context *gin.Context) {
 func (c ChannelController) Show(context *gin.Context) {
 	twitterAccount := context.Param("twitterAccount") // get URL path parameter: twitterAccount
 
-	channel, err := service.GetChannelByTwitterAccount(twitterAccount)
+	channelService := new(services.ChannelService)
+	channel, err := channelService.GetChannelByTwitterAccount(twitterAccount)
 	if err != nil {
 		fmt.Println("Get /api/v1/channels/{twitterAccount} Failed:", err)
 	}
