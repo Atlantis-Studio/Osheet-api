@@ -15,7 +15,7 @@ type ChannelController struct{}
 // @Tags        Channels
 // @Accept 		json
 // @Produce 	json
-// @Success 	200 {object} []ChannelEntity.Channel
+// @Success 	200 {object} []models.Channel
 // @Router 		/api/v1/channels [get]
 func (c ChannelController) Index(context *gin.Context) {
 	// company := context.Query("company")  // TODO get query string: company
@@ -29,13 +29,22 @@ func (c ChannelController) Index(context *gin.Context) {
 	context.JSON(http.StatusOK, channels)
 }
 
-// @Summary Get Channel By Twitter Account
+// @Summary     Create Channl
+// @Description Store new channel
+// @Tags        Channels
+// @Accept 		json
+// @Produce 	json
+// @Success 	200 {object} models.Channel
+// @Router 		/api/v1/channels [post]
+func (c ChannelController) Store(context *gin.Context) {
+}
+
 // @Description Show channel info
 // @Tags        Channels
 // @Accept      json
 // @Produce     json
 // @param       twitterAccount path string true "Twitter Account"
-// @Success 	200 {object} ChannelEntity.Channel
+// @Success 	200 {object} models.Channel
 // @Failure		404 {string} Channel not found
 // @Router 		/api/v1/channels/{twitterAccount} [get]
 func (c ChannelController) Show(context *gin.Context) {
@@ -49,5 +58,3 @@ func (c ChannelController) Show(context *gin.Context) {
 
 	context.JSON(http.StatusOK, channel)
 }
-
-// TODO: Create channel

@@ -1,5 +1,13 @@
 definitions:
-  ChannelEntity.Channel:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  models.Channel:
     properties:
       avatar:
         type: string
@@ -9,32 +17,24 @@ definitions:
         type: string
       company:
         type: string
+      createdAt:
+        type: string
       debutDate:
         type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
       height:
         type: number
-      info:
-        $ref: '#/definitions/ChannelEntity.Info'
+      id:
+        type: integer
       name:
         type: string
       twitterAccount:
         type: string
       unit:
         type: string
-    type: object
-  ChannelEntity.Hashtag:
-    properties:
-      fanArt:
+      updatedAt:
         type: string
-      streamTag:
-        type: string
-    type: object
-  ChannelEntity.Info:
-    properties:
-      fanName:
-        type: string
-      hashtags:
-        $ref: '#/definitions/ChannelEntity.Hashtag'
     type: object
 info:
   contact: {}
@@ -57,9 +57,23 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/ChannelEntity.Channel'
+              $ref: '#/definitions/models.Channel'
             type: array
       summary: Get Channels
+      tags:
+      - Channels
+    post:
+      consumes:
+      - application/json
+      description: Store new channel
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Channel'
+      summary: Create Channl
       tags:
       - Channels
   /api/v1/channels/{twitterAccount}:
@@ -79,12 +93,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ChannelEntity.Channel'
+            $ref: '#/definitions/models.Channel'
         "404":
           description: Not Found
           schema:
             type: string
-      summary: Get Channel By Twitter Account
       tags:
       - Channels
 swagger: "2.0"

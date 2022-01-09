@@ -30,8 +30,29 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/ChannelEntity.Channel"
+                                "$ref": "#/definitions/models.Channel"
                             }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Store new channel",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Channels"
+                ],
+                "summary": "Create Channl",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Channel"
                         }
                     }
                 }
@@ -49,7 +70,6 @@
                 "tags": [
                     "Channels"
                 ],
-                "summary": "Get Channel By Twitter Account",
                 "parameters": [
                     {
                         "type": "string",
@@ -63,7 +83,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ChannelEntity.Channel"
+                            "$ref": "#/definitions/models.Channel"
                         }
                     },
                     "404": {
@@ -77,7 +97,19 @@
         }
     },
     "definitions": {
-        "ChannelEntity.Channel": {
+        "gorm.DeletedAt": {
+            "type": "object",
+            "properties": {
+                "time": {
+                    "type": "string"
+                },
+                "valid": {
+                    "description": "Valid is true if Time is not NULL",
+                    "type": "boolean"
+                }
+            }
+        },
+        "models.Channel": {
             "type": "object",
             "properties": {
                 "avatar": {
@@ -92,14 +124,20 @@
                 "company": {
                     "type": "string"
                 },
+                "createdAt": {
+                    "type": "string"
+                },
                 "debutDate": {
                     "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/gorm.DeletedAt"
                 },
                 "height": {
                     "type": "number"
                 },
-                "info": {
-                    "$ref": "#/definitions/ChannelEntity.Info"
+                "id": {
+                    "type": "integer"
                 },
                 "name": {
                     "type": "string"
@@ -109,28 +147,9 @@
                 },
                 "unit": {
                     "type": "string"
-                }
-            }
-        },
-        "ChannelEntity.Hashtag": {
-            "type": "object",
-            "properties": {
-                "fanArt": {
-                    "type": "string"
                 },
-                "streamTag": {
+                "updatedAt": {
                     "type": "string"
-                }
-            }
-        },
-        "ChannelEntity.Info": {
-            "type": "object",
-            "properties": {
-                "fanName": {
-                    "type": "string"
-                },
-                "hashtags": {
-                    "$ref": "#/definitions/ChannelEntity.Hashtag"
                 }
             }
         }

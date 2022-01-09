@@ -32,9 +32,9 @@ func main() {
 		v1Group := apiGroup.Group("/v1")
 		{
 			v1Group.GET("/channels", channelController.Index)
-			v1Group.GET("/channels/:twitterAccount", channelController.Show)
+			v1Group.POST("/channels", channelController.Store)
 
-			// TODO POST /channels
+			v1Group.GET("/channels/:twitterAccount", channelController.Show)
 		}
 	}
 
